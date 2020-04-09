@@ -13,6 +13,7 @@ const typeDefs = gql `
 
     type User {
         id : ID!
+        name: String!
         timeInCompany: Int
         currentJob: String
     }

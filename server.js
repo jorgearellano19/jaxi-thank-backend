@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const { ApolloServer } = require('apollo-server-express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const types = require('./graphql/types/types').typeDefs;
 
 mongoose.connect('mongodb://mongo/myappdb',{
     useUnifiedTopology: true,
@@ -10,8 +14,15 @@ mongoose.connect('mongodb://mongo/myappdb',{
     .catch(err => {
         console.log(`DB Connection Error: ${err.message}`);
     });
-    
+
 app.set('port', (process.env.PORT || 4000));
-app.listen(app.get('port'), () => {
-    console.log("Node app is running at localhost:" + app.get('port'));
+
+const server = new ApolloServer({
+    typeDefs: types
 });
+
+app.use(bodyParser.json());
+app.use('*', cors());
+server.applyMiddleware({ app });
+
+app.listen(app.get('port'),  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));

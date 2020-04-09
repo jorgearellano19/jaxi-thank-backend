@@ -16,9 +16,15 @@ function createProject(parent, args) {
 
 }
 
+function getProject(parent, args) { 
+    if(!args.id) return;
+    return Project.findById({_id: args.id});
+}
+
 module.exports = {
     projectQueries: {
-        getProjects
+        getProjects,
+        getProject
     },
     projectMutations: {
         createProject

@@ -33,9 +33,15 @@ function deleteUser(parent, args) {
     return User.findByIdAndRemove({_id: args.id});
 }
 
+function getUser(parent, args) { 
+    if(!args.id) return;
+    return User.findById({_id: args.id});
+}
+
 module.exports = {
     userQueries: {
-        getUsers
+        getUsers,
+        getUser
     },
     userMutations: {
         createUser,

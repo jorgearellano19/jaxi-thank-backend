@@ -13,11 +13,33 @@ function createUser(parent, args) {
     return User.create(user);
 }
 
+function updateUser(parent, args) {
+    if (!args.id) return;
+        return User.findOneAndUpdate(
+         {
+           _id: args.id
+         },
+         {
+           $set: {
+             name: args.name,
+             timeInCompany: args.timeInCompany,
+             currentJob: args.currentJob,
+           }
+         }, {new: true});
+}
+
+function deleteUser(parent, args) {
+    if(!args.id) return;
+    return User.findByIdAndRemove({_id: args.id});
+}
+
 module.exports = {
     userQueries: {
         getUsers
     },
     userMutations: {
-        createUser
+        createUser,
+        updateUser,
+        deleteUser
     }
 };

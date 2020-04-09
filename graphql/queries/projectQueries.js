@@ -16,6 +16,27 @@ function createProject(parent, args) {
 
 }
 
+function updateProject(parent, args) {
+    if (!args.id) return;
+        return Project.findOneAndUpdate(
+         {
+           _id: args.id
+         },
+         {
+           $set: {
+             name: args.name,
+             description: args.description,
+             technologies: args.technologies,
+             phase: args.phase
+           }
+         }, {new: true});
+}
+
+function deleteProject(parent, args) {
+    if(!args.id) return;
+    return Project.findByIdAndRemove({_id: args.id});
+}
+
 function getProject(parent, args) { 
     if(!args.id) return;
     return Project.findById({_id: args.id});
@@ -24,9 +45,12 @@ function getProject(parent, args) {
 module.exports = {
     projectQueries: {
         getProjects,
-        getProject
+        getProject,
+
     },
     projectMutations: {
-        createProject
+        createProject,
+        deleteProject,
+        updateProject
     }
 };

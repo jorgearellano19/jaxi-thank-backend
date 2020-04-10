@@ -7,8 +7,8 @@ const typeDefs = gql `
         id: ID!
         name: String!
         description: String!
-        technologies: [String]!
-        phase: String
+        technologies: String!
+        phase: String!
     }
 
     type User {
@@ -26,8 +26,8 @@ const typeDefs = gql `
     }
 
     type Mutation {
-        createProject(name: String!, description: String!, technologies: [String]!, phase: String!) : Project
-        updateProject(id: ID!, name: String!, description: String!, technologies: [String]!, phase: String!) : Project
+        createProject(name: String!, description: String!, technologies: String!, phase: String!) : Project
+        updateProject(id: ID!, name: String!, description: String!, technologies: String!, phase: String!) : Project
         deleteProject(id: ID!) : Project
         createUser(name: String!, timeInCompany: Int!, currentJob: String!) : User
         updateUser(id: ID!, name: String!, timeInCompany: Int!, currentJob: String!): User
